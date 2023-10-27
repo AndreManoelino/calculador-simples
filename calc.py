@@ -1,46 +1,68 @@
-#Função soma
-def somar(x, y):
-    return x + y
+#Nessa versão usei uma biblioteca para tornar uma interface gráfica no python
+import tkinter as tk
 
-#Função subtração
-def subtrair(x, y):
-    return x - y
+def press(event):
+    text = event.widget.cget('text')
+    if text == '=':
+        try:
+            result =  str(eval(entry.get()))
+            entry.delete(0, tk.END)
+            entry.insert(tk.END, result)
+        except Exception as e :
+            entry.delete(0, tk.END)
+            entry.insert(tk.END, 'Error')
+    elif text == 'C':
+        entry.delete(0, tk.END)
+    else:
+        entry.insert(tk.END, text)
 
-#função multiplicação
-def multiplicar(x, y):
-    return x * y
+#Criar a janela principal
+window = tk.tk()
+window.title('Calculadora')
+ 
 
-#Função divisão
-def dividir(x, y):
-    if y == 0:
-        return 'Não e possível dividir por zero'
-    return x / y
 
-#Apresentação do menu
-print('Selecionar a operação')
-print('1_ soma')
-print('2_ subtração')
-print('3_ multiplicação')
-print('4_ Divisão')
+#criar a entrada de texto
+entry = tk.Entry(window, font=('Arial', 20))
+entry.pack(fill=tk.BOTH, expand=True)
 
-#Obtendo a escolha do usuário
-escolha = input('Digite o número da operação desejada.')
+#Criando os botões
+buttons = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    'C', '0', '=', '+'
+]
 
-#Usando método float para obter um número flutuante
-num1 = float(input('Digite o primeiro número'))
-num2 = float(input('Digite o segundo número .'))
+button_frame = tk.Frame(window)
+button_frame.pack()
 
-#Realizando a operação escolhida
-if escolha == '1':
-    print('Resultado:', somar(num1, num2))
-elif escolha == '2':
-    print('Resultado:', subtrair(num1, num2))
-elif escolha == '3':
-    print('Resultado:', multiplicar(num1, num2))
-elif escolha == '4':
-    print('Resultado:', dividir(num1, num2))
+row, col = 1, 0
 
-else:
-    print('Opção inválida') 
+
+button_frame = tk.Frame(window)
+button_frame.pack()
+
+
+
+
+
+button_frame = 1, 0
+for button_text in buttons:
+    button = tk.Button(button_frame, text=button_text, font=("Arial", 20), width=3, height=1)
+    button.grid(row=row, column=col)
+    button.bind("<Button-1>", press)
+    col += 1
+    if col > 3:
+        col = 0
+        row += 1
+
+
+
+window.mainloop()    
+
+
+
+
 
         
